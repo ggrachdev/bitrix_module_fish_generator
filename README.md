@@ -31,6 +31,7 @@ $result = (new ElementFishGenerator(6))->setDebug(true)->setStrictMode(true)->se
    
 print_r($result);
 ?>
+```
 
 Доступные способы для генерации:
 inn
