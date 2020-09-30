@@ -34,8 +34,8 @@ print_r($result);
 ```
 
 Доступные способы для генерации:  
-inn  // ИНН
-name  
+inn // ИНН  
+name // Имя  
 kpp  
 address  
 realText(100)  
