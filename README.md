@@ -12,7 +12,7 @@ use Fred\FishGenerator\ElementFishGenerator;
 * В конструктор передаем IBLOCK ID в который нужно сгенерировать тестовый элемент
 * При setDebug = true в результирующий массив записываются данные для генерации
 * При setStrictMode = true выбрасываются Exception'ы если что-то идет не так
-* 
+* Вторым параметром в конструктор можно передать локализацию faker, по умолчанию ru_RU
 */
 
 $result = (new ElementFishGenerator(6))->setDebug(true)->setStrictMode(true)->setCategoryPhoto(['technics', 'business', 'city'])->setPropertyRules([
@@ -33,8 +33,8 @@ print_r($result);
 ?>
 ```
 
-Доступные способы для генерации:
-inn  
+Доступные способы для генерации:  
+inn  // ИНН
 name  
 kpp  
 address  
