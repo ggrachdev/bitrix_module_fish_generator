@@ -34,28 +34,29 @@ print_r($result);
 ```
 
 Доступные способы для генерации:
-inn
-name
-kpp
-address
-realText(100)
-word
-city
-country
-phoneNumber
-company
-email
-streetAddress
-date
-time
-year
-jobTitle
-numberBetween(0)(1000)
-randomElement(1,2,3,4)
-lastName
-firstName
-latitude
-longitude
-hexcolor
-image
-image(1000, 500) // Ширина, высота
+inn  
+name  
+kpp  
+address  
+realText(100)  
+word  
+city  
+country  
+phoneNumber  
+company  
+email  
+streetAddress  
+date  
+time  
+year  
+jobTitle  
+numberBetween(0)(1000)  
+randomElement(1,2,3,4)  
+lastName  
+firstName  
+latitude  
+longitude  
+hexcolor  
+image  
+image(1000, 500) // Ширина, высота  
+randomSection // Привязать элемент к случайной секции инфоблока
