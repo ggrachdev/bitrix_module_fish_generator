@@ -29,7 +29,9 @@ $result = (new ElementFishGenerator(6))->setDebug(true)->setStrictMode(true)->se
        '*IBLOCK_SECTION_ID' => 'randomSection'
    ])->generate(1);
    
-print_r($result);
+echo '<pre>';  
+print_r($result);  
+echo '</pre>';  
 ?>
 ```
 
