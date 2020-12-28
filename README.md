@@ -27,8 +27,8 @@ $result = (new ElementFishGenerator(6))->setDebug(true)->setStrictMode(true)->se
        '*=NAME' => 'Тестовый элемент $',
        
        /*  
-       * Если свойство является множественным, то передаем массив - 1 элемент задаем генератор (так же поддерживаются *, =), 2 элемент - кол-во элементов для генерации  
-       * Если нужно сгененировать одиночное свойство, то передаем просто строк (в качестве значения)  
+       * Если свойство является множественным, то передаем массив - 1 элемент массива задаем генератор (так же поддерживаются *, =), 2 элемент массива - кол-во элементов для генерации  
+       * Если нужно сгененировать одиночное свойство, то передаем просто строку (в качестве значения)  
        */  
        'PRODUCTION_PHOTOS' => [
            'image', 7
@@ -49,29 +49,29 @@ echo '</pre>';
 ```
 
 Доступные способы для генерации:  
-inn // ИНН  
-name // Имя  
-kpp  
-address  
-realText(100)  
-word  
-city  
-country  
-phoneNumber  
-company  
-email  
-streetAddress  
-date  
-time  
-year  
-jobTitle  
-numberBetween(0)(1000)  
-randomElement(1,2,3,4)  
-lastName  
-firstName  
-latitude  
-longitude  
-hexcolor  
-image  
-image(1000, 500) // Ширина, высота  
-randomSection // Привязать элемент к случайной секции инфоблока
+  inn // ИНН  
+  name // Имя  
+  kpp  
+  address  
+  realText(100)  
+  word  
+  city  
+  country  
+  phoneNumber  
+  company  
+  email  
+  streetAddress  
+  date  
+  time  
+  year  
+  jobTitle  
+  numberBetween(0)(1000)  
+  randomElement(1,2,3,4)  
+  lastName  
+  firstName  
+  latitude  
+  longitude  
+  hexcolor  
+  image  
+  image(1000, 500) // Ширина, высота  
+  randomSection // Привязать элемент к случайной секции инфоблока
