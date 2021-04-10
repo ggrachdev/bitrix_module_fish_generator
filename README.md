@@ -15,10 +15,15 @@ use Fred\FishGenerator\ElementFishGenerator;
 * При setDebug = true в результирующий массив записываются данные для генерации
 * При setStrictMode = true выбрасываются Exception'ы если что-то идет не так
 * Вторым параметром в конструктор можно передать локализацию faker, по умолчанию ru_RU
-* По умолчанию автоматически генерируются: имя, детальное фото, фото анонса, детальный текст + текст анонса, символьный код    
+* По умолчанию автоматически генерируются: имя, детальное фото, фото анонса, детальный текст + текст анонса, символьный код
+* Системными полями считаются: 'NAME', 'ACTIVE', 'CODE', 'IBLOCK_SECTION_ID', 'DETAIL_TEXT', 'PREVIEW_TEXT', 'SORT'
+* Если поле является системным, то нужно установки правил генерации ставить * перед ним, если же свойство является дополнительно созданным и к 
+* нему нужно обращаться через PROPERTY_... то ничего в качестве префикса ставить не нужно
 */
 
-$result = (new ElementFishGenerator(6))->setDebug(true)->setStrictMode(true)->setCategoryPhoto(['technics', 'business', 'city'])->setPropertyRules([
+$result = (new ElementFishGenerator(6))->setDebug(true)->setStrictMode(true)
+->setCategoryPhoto(['technics', 'business', 'city'])
+->setPropertyRules([
        /*  
        * Если свойство является системым, то ставим в начале *, если свойство является дополнительным у инфоблока (Т.е PROPERTY_NAME), то не ставим  
        * Если  нужно задать строгое значение свойства при добавлении элементов, то ставим =, можно группировать: *=, =, *, при этом в $ 
@@ -49,29 +54,29 @@ echo '</pre>';
 ```
 
 Доступные способы для генерации:  
-  inn // ИНН  
-  name // Имя  
-  kpp  
-  address  
-  realText(100)  
-  word  
-  city  
-  country  
-  phoneNumber  
-  company  
-  email  
-  streetAddress  
-  date  
-  time  
-  year  
-  jobTitle  
-  numberBetween(0)(1000)  
-  randomElement(1,2,3,4)  
-  lastName  
-  firstName  
-  latitude  
-  longitude  
-  hexcolor  
-  image  
-  image(1000, 500) // Ширина, высота  
-  randomSection // Привязать элемент к случайной секции инфоблока
+- inn // ИНН  
+- name // Имя  
+- kpp  
+- address  
+- realText(100)  
+- word  
+- city  
+- country  
+- phoneNumber  
+- company  
+- email  
+- streetAddress  
+- date  
+- time  
+- year  
+- jobTitle  
+- numberBetween(0)(1000)  
+- randomElement(1,2,3,4)  
+- lastName  
+- firstName  
+- latitude  
+- longitude  
+- hexcolor  
+- image  
+- image(1000, 500) // Ширина, высота  
+- randomSection // Привязать элемент к случайной секции инфоблока
