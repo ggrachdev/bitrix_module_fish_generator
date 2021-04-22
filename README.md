@@ -10,6 +10,9 @@
 <?php
 use GGrach\FishGenerator\Generators\FishGenerator;
 
+
+\Bitrix\Main\Loader::includeModule('ggrachdev.fish_generator');
+
 /** 
 * В конструктор передаем IBLOCK ID в который нужно сгенерировать тестовый элемент
 * При setDebug = true в результирующий массив записываются данные для генерации
