@@ -1,11 +1,11 @@
 <?
 
-namespace Fred\FishGenerator\Generators;
+namespace GGrach\FishGenerator\Generators;
 
-use Fred\FishGenerator\Exceptions\GenerateElementException;
-use Fred\FishGenerator\Exceptions\SearchIblockException;
-use Fred\FishGenerator\Exceptions\GeneratorTypeException;
-use Fred\FishGenerator\PropertyRulesElementFilter;
+use GGrach\FishGenerator\Exceptions\GenerateElementException;
+use GGrach\FishGenerator\Exceptions\SearchIblockException;
+use GGrach\FishGenerator\Exceptions\GeneratorTypeException;
+use GGrach\FishGenerator\PropertyRulesElementFilter;
 
 /**
  * Логика генерации элемента

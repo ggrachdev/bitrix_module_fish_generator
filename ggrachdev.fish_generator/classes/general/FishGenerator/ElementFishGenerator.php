@@ -1,9 +1,9 @@
 <?
 
-namespace Fred\FishGenerator;
+namespace GGrach\FishGenerator;
 
-use Fred\FishGenerator\Exceptions\GeneratePhotoException;
-use Fred\FishGenerator\Exceptions\BitrixRedactionException;
+use GGrach\FishGenerator\Exceptions\GeneratePhotoException;
+use GGrach\FishGenerator\Exceptions\BitrixRedactionException;
 
 /**
  * @todo Add https://dummyimage.com/
@@ -108,7 +108,7 @@ class PhotoGenerator extends Debug {
      * Установить категорию фото
      * 
      * @param string|array $categoryPhoto
-     * @return \Fred\Generators\ElementFishGenerator
+     * @return \GGrach\Generators\ElementFishGenerator
      */
     public function setCategoryPhoto($categoryPhoto): ElementFishGenerator {
 
