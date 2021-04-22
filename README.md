@@ -8,7 +8,7 @@
 
 ```php
 <?php
-use GGrach\FishGenerator\ElementFishGenerator;
+use GGrach\FishGenerator\Generators\FishGenerator;
 
 /** 
 * В конструктор передаем IBLOCK ID в который нужно сгенерировать тестовый элемент
@@ -21,7 +21,7 @@ use GGrach\FishGenerator\ElementFishGenerator;
 * нему нужно обращаться через PROPERTY_... то ничего в качестве префикса ставить не нужно
 */
 
-$result = (new ElementFishGenerator(6))->setDebug(true)->setStrictMode(true)
+$result = (new FishGenerator(6))->setDebug(true)->setStrictMode(true)
 ->setCategoryPhoto(['technics', 'business', 'city'])
 ->setPropertyRules([
        /*  

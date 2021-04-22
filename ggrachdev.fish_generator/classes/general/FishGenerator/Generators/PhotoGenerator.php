@@ -3,6 +3,7 @@
 namespace GGrach\FishGenerator\Generators;
 
 use GGrach\FishGenerator\Exceptions\GeneratePhotoException;
+use GGrach\FishGenerator\Debug;
 
 /**
  * @todo Add https://dummyimage.com/

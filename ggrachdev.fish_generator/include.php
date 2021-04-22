@@ -15,6 +15,6 @@ include_once 'classes/general/Libs/faker/src/autoload.php';
     "\GGrach\FishGenerator\Generators\PhotoGenerator" => "classes/general/FishGenerator/Generators/PhotoGenerator.php",
     "\GGrach\FishGenerator\PropertyRulesElementFilter" => "classes/general/FishGenerator/PropertyRulesElementFilter.php",
     "\GGrach\FishGenerator\Generators\ElementGenerator" => "classes/general/FishGenerator/Generators/ElementGenerator.php",
-    "\GGrach\FishGenerator\Generators\ElementFishGenerator" => "classes/general/FishGenerator/Generators/ElementFishGenerator.php",
+    "\GGrach\FishGenerator\Generators\FishGenerator" => "classes/general/FishGenerator/Generators/FishGenerator.php",
 ]);
 ?>

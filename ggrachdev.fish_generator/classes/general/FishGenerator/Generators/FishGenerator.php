@@ -5,10 +5,9 @@ namespace GGrach\FishGenerator\Generators;
 use GGrach\FishGenerator\Exceptions\SearchIblockException;
 
 /**
- * @version 0.2
  * @todo Добавить исключения
  */
-class ElementFishGenerator extends ElementGenerator {
+final class FishGenerator extends ElementGenerator {
 
     /**
      * @var array Кеш
