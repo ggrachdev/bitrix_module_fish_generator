@@ -1,13 +1,13 @@
 <?
 
-namespace Fred\FishGenerator\Exceptions;
+namespace GGrach\FishGenerator\Exceptions;
 
 use \Exception;
 
 /**
- * Ошибки при генерации элементов
+ * Ошибки при поиске инфоблока
  */
-class GenerateElementException extends Exception {
+class SearchIblockException extends Exception {
 
     public function __construct($message, $code = 0, Exception $previous = null) {
         parent::__construct($message, $code, $previous);

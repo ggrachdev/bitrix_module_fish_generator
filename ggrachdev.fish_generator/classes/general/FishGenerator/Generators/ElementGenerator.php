@@ -1,11 +1,11 @@
 <?
 
-namespace Fred\FishGenerator\Generators;
+namespace GGrach\FishGenerator\Generators;
 
-use Fred\FishGenerator\Exceptions\GenerateElementException;
-use Fred\FishGenerator\Exceptions\SearchIblockException;
-use Fred\FishGenerator\Exceptions\GeneratorTypeException;
-use Fred\FishGenerator\PropertyRulesElementFilter;
+use GGrach\FishGenerator\Exceptions\GenerateElementException;
+use GGrach\FishGenerator\Exceptions\SearchIblockException;
+use GGrach\FishGenerator\Exceptions\GeneratorTypeException;
+use GGrach\FishGenerator\PropertyRulesElementFilter;
 
 /**
  * Логика генерации элемента
@@ -48,17 +48,17 @@ class ElementGenerator extends PropertyRulesElementFilter {
 
                 $arPropertyGenerated = $this->getGeneratedPropertyArray();
 
-                $linkPreviewImage = $this->$dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
-                $linkDetailImage = $this->$dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
+                $linkPreviewImage = $this->dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
+                $linkDetailImage = $this->dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
 
                 $previewPicture = $this->generatePhotoFromLink($linkPreviewImage);
                 $detailPicture = $this->generatePhotoFromLink($linkDetailImage);
 
                 $arField = [
                     'IBLOCK_ID' => $this->iblockId,
-                    'ACTIVE_FROM' => ConvertTimeStamp($this->$dataGenerator->dateTime('now')->getTimestamp(), "FULL"),
-                    'PREVIEW_TEXT' => $this->$dataGenerator->realText(100),
-                    'DETAIL_TEXT' => $this->$dataGenerator->realText(500),
+                    'ACTIVE_FROM' => ConvertTimeStamp($this->dataGenerator->dateTime('now')->getTimestamp(), "FULL"),
+                    'PREVIEW_TEXT' => $this->dataGenerator->realText(100),
+                    'DETAIL_TEXT' => $this->dataGenerator->realText(500),
                     'PREVIEW_PICTURE' => $previewPicture,
                     'DETAIL_PICTURE' => $detailPicture,
                     'ACTIVE' => 'Y'
@@ -79,7 +79,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                 $arField['NAME'] = str_replace('$', ($i + 1), $arField['NAME']);
 
                 if (empty($arField['NAME'])) {
-                    $arField['NAME'] = $this->$dataGenerator->catchPhrase;
+                    $arField['NAME'] = $this->dataGenerator->catchPhrase;
                 }
 
                 $arField['CODE'] = \CUtil::translit($arField['NAME'], "ru");
@@ -194,89 +194,89 @@ class ElementGenerator extends PropertyRulesElementFilter {
         // @todo Вынести в отдельную сущность, написать через рефлексию генерации где нет параметров
         switch ($typeGenerator) {
             case 'name':
-                $valuePropety = $this->$dataGenerator->name;
+                $valuePropety = $this->dataGenerator->name;
                 break;
 
             case 'inn':
-                $valuePropety = $this->$dataGenerator->inn;
+                $valuePropety = $this->dataGenerator->inn;
                 break;
 
             case 'kpp':
-                $valuePropety = $this->$dataGenerator->kpp;
+                $valuePropety = $this->dataGenerator->kpp;
                 break;
 
             case 'address':
-                $valuePropety = $this->$dataGenerator->address;
+                $valuePropety = $this->dataGenerator->address;
                 break;
 
             case 'text':
-                $valuePropety = $this->$dataGenerator->text;
+                $valuePropety = $this->dataGenerator->text;
                 break;
 
             case 'word':
-                $valuePropety = $this->$dataGenerator->word;
+                $valuePropety = $this->dataGenerator->word;
                 break;
 
             case 'city':
-                $valuePropety = $this->$dataGenerator->city;
+                $valuePropety = $this->dataGenerator->city;
                 break;
 
             case 'country':
-                $valuePropety = $this->$dataGenerator->country;
+                $valuePropety = $this->dataGenerator->country;
                 break;
 
             case 'phoneNumber':
-                $valuePropety = $this->$dataGenerator->phoneNumber;
+                $valuePropety = $this->dataGenerator->phoneNumber;
                 break;
 
             case 'company':
-                $valuePropety = $this->$dataGenerator->company;
+                $valuePropety = $this->dataGenerator->company;
                 break;
 
             case 'email':
-                $valuePropety = $this->$dataGenerator->email;
+                $valuePropety = $this->dataGenerator->email;
                 break;
 
             case 'streetAddress':
-                $valuePropety = $this->$dataGenerator->streetAddress;
+                $valuePropety = $this->dataGenerator->streetAddress;
                 break;
 
             case 'date':
                 // @todo Добавить формат
-                $valuePropety = $this->$dataGenerator->date;
+                $valuePropety = $this->dataGenerator->date;
                 break;
 
             case 'time':
                 // @todo Добавить формат
-                $valuePropety = $this->$dataGenerator->time;
+                $valuePropety = $this->dataGenerator->time;
                 break;
 
             case 'year':
-                $valuePropety = $this->$dataGenerator->year;
+                $valuePropety = $this->dataGenerator->year;
                 break;
 
             case 'jobTitle':
-                $valuePropety = $this->$dataGenerator->jobTitle;
+                $valuePropety = $this->dataGenerator->jobTitle;
                 break;
 
             case 'lastName':
-                $valuePropety = $this->$dataGenerator->lastName;
+                $valuePropety = $this->dataGenerator->lastName;
                 break;
 
             case 'firstName':
-                $valuePropety = $this->$dataGenerator->firstName;
+                $valuePropety = $this->dataGenerator->firstName;
                 break;
 
             case 'hexcolor':
-                $valuePropety = $this->$dataGenerator->hexcolor;
+                $valuePropety = $this->dataGenerator->hexcolor;
                 break;
 
             case 'latitude':
-                $valuePropety = $this->$dataGenerator->latitude;
+                $valuePropety = $this->dataGenerator->latitude;
                 break;
 
             case 'longitude':
-                $valuePropety = $this->$dataGenerator->longitude;
+                $valuePropety = $this->dataGenerator->longitude;
                 break;
 
             case 'image':
@@ -304,7 +304,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                         $categoryPhoto = $this->getRandomCategoryPhoto();
 
                         $fileArray = [
-                            'VALUE' => $this->generatePhotoFromLink($this->$dataGenerator->imageUrl($width, $height, $categoryPhoto))
+                            'VALUE' => $this->generatePhotoFromLink($this->dataGenerator->imageUrl($width, $height, $categoryPhoto))
                         ];
 
                         if (!empty($fileArray['VALUE']['tmp_name'])) {
@@ -313,7 +313,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                         }
                     }
                 } else {
-                    $linkImg = $this->$dataGenerator->imageUrl($width, $height, $categoryPhoto);
+                    $linkImg = $this->dataGenerator->imageUrl($width, $height, $categoryPhoto);
                     $valuePropety = $this->generatePhotoFromLink($linkImg);
                 }
                 break;
@@ -322,7 +322,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                 // @todo Сделать (1, 100) а не (1)(100)
                 $numberFrom = is_numeric($arParams[0]) ? $arParams[0] : 0;
                 $numberTo = is_numeric($arParams[1]) ? $arParams[1] : 100;
-                $valuePropety = $this->$dataGenerator->numberBetween($numberFrom, $numberTo);
+                $valuePropety = $this->dataGenerator->numberBetween($numberFrom, $numberTo);
                 break;
 
             case 'randomElement':
@@ -334,7 +334,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                             return trim($el);
                         }, $arRand);
 
-                        $valuePropety = $this->$dataGenerator->randomElement($arRand);
+                        $valuePropety = $this->dataGenerator->randomElement($arRand);
                     }
                 } else {
 
@@ -342,7 +342,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                     $arRand = explode(',', $arParams[0]);
 
                     for ($i = 0; $i < $count; $i++) {
-                        $valuePropety[] = trim($this->$dataGenerator->randomElement($arRand));
+                        $valuePropety[] = trim($this->dataGenerator->randomElement($arRand));
                     }
                 }
                 break;
@@ -351,11 +351,11 @@ class ElementGenerator extends PropertyRulesElementFilter {
                 $length = is_numeric($arParams[0]) ? $arParams[0] : 100;
 
                 if ($count == 1) {
-                    $valuePropety = $this->$dataGenerator->realText($length);
+                    $valuePropety = $this->dataGenerator->realText($length);
                 } else {
                     $valuePropety = [];
                     for ($i = 0; $i < $count; $i++) {
-                        $valuePropety[] = trim($this->$dataGenerator->realText($length));
+                        $valuePropety[] = trim($this->dataGenerator->realText($length));
                     }
                 }
 
@@ -372,44 +372,6 @@ class ElementGenerator extends PropertyRulesElementFilter {
 
 
         return $valuePropety;
-    }
-
-}
-
-/**
- * @version 0.2
- * @todo Добавить исключения
- */
-class ElementFishGenerator extends ElementGenerator {
-
-    /**
-     * @var array Кеш
-     */
-    public $arCache = [];
-
-    /*
-     * @var int ID Инфоблока в который будет осуществлена генерация
-     */
-    protected $iblockId = null;
-
-    /**
-     * 
-     * @param int $iblockId
-     * @param string $localization Локализация
-     * @throws BitrixRedactionException
-     */
-    public function __construct(int $iblockId, string $localization = 'ru_RU') {
-
-        if (\CModule::IncludeModule("iblock")) {
-            $dbRes = \CIBlock::GetByID($iblockId);
-            if (!$dbRes->GetNext()) {
-                throw new SearchIblockException('Указаный инфоблок не найден');
-            }
-            $this->$dataGenerator = \Faker\Factory::create($localization);
-            $this->iblockId = $iblockId;
-        } else {
-            throw new BitrixRedactionException('Не найдены необходимые для работы библиотеки модули');
-        }
     }
 
 }

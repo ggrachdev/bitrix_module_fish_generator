@@ -1,13 +1,13 @@
 <?
 
-namespace Fred\FishGenerator\Exceptions;
+namespace GGrach\FishGenerator\Exceptions;
 
 use \Exception;
 
 /**
- * Ошибки при генерации фотографий
+ * Ошибки при несоответствии редации битрикса
  */
-class GeneratePhotoException extends Exception {
+class BitrixRedactionException extends Exception {
 
     public function __construct($message, $code = 0, Exception $previous = null) {
         parent::__construct($message, $code, $previous);
@@ -18,4 +18,5 @@ class GeneratePhotoException extends Exception {
     }
 
 }
+
 ?>
