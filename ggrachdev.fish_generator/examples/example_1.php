@@ -8,7 +8,7 @@ if (\Bitrix\Main\Loader::includeModule('ggrachdev.fish_generator')) {
     $countElements = 10;
 
     $result = (new \GGrach\FishGenerator\Generators\FishGenerator($iblockId))
-            ->setDebug(true)
+            ->setDebugMode(true)
             ->setStrictMode(true)
             ->setGenerationRules([
                 '*=NAME' => 'Тестовый элемент $',

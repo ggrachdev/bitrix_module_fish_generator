@@ -3,7 +3,7 @@
 namespace GGrach\FishGenerator\Generators;
 
 use GGrach\FishGenerator\Exceptions\GeneratePhotoException;
-use GGrach\FishGenerator\Debug;
+use GGrach\FishGenerator\Debug\Debug;
 
 /**
  * @todo Add https://dummyimage.com/
@@ -15,10 +15,10 @@ use GGrach\FishGenerator\Debug;
  * Все, что связано с генерацией фотографий
  */
 class PhotoGenerator extends Debug {
+    
     /*
      * Категории фотографи которые можно установить для генерации
      */
-
     const VALID_CATEGORIES_PHOTO = [
         'abstract', 'animals', 'business',
         'cats', 'city', 'food',
