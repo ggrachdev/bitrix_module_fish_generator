@@ -18,7 +18,13 @@ class ggrachdev_fish_generator extends CModule {
      * Инициализация модуля для страницы "Управление модулями"
      */
     function __construct() {
-        include($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php");
+        
+        if (\is_file($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php")) {
+            $arModuleVersion = include($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/{$this->MODULE_ID}/install/version.php");
+        } else {
+            $arModuleVersion = include($_SERVER["DOCUMENT_ROOT"] . "/local/modules/{$this->MODULE_ID}/install/version.php");
+        }
+        
         $this->MODULE_NAME = GetMessage('GGRACHDEV_FISH_GENERATOR_MODULNAME');
         $this->MODULE_DESCRIPTION = GetMessage('GGRACHDEV_FISH_GENERATOR_DESC');
         $this->MODULE_VERSION = $arModuleVersion['VERSION'];

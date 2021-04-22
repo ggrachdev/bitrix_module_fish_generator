@@ -55,7 +55,7 @@ class PhotoGenerator extends Debug {
         }
 
         if ($isValidPhotoCategory === false) {
-            if ($this->$isStrictMode) {
+            if ($this->isStrictMode) {
                 if (is_array($categoryPhoto)) {
                     throw new GeneratePhotoException('Not found photos with categories ' . implode(',', $categoryPhoto));
                 } else {
