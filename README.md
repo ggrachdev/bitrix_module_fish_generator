@@ -8,7 +8,7 @@
 
 ```php
 <?php
-use Fred\FishGenerator\ElementFishGenerator;
+use GGrach\FishGenerator\ElementFishGenerator;
 
 /** 
 * В конструктор передаем IBLOCK ID в который нужно сгенерировать тестовый элемент
