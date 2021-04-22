@@ -27,12 +27,16 @@ final class FishGenerator extends ElementGenerator {
      */
     public function __construct(int $iblockId, string $localization = 'ru_RU') {
 
-        if (\CModule::IncludeModule("iblock")) {
-            $dbRes = \CIBlock::GetByID($iblockId);
+        if (\Bitrix\Main\Loader::includeModule("iblock")) {
+            $dbRes = \CIBlock::GetList(
+                    [],
+                    ["ID" => $iblockId]
+            );
+
             if (!$dbRes->GetNext()) {
                 throw new SearchIblockException('Указаный инфоблок не найден');
             }
-            $this->$dataGenerator = \Faker\Factory::create($localization);
+            $this->dataGenerator = \Faker\Factory::create($localization);
             $this->iblockId = $iblockId;
         } else {
             throw new BitrixRedactionException('Не найдены необходимые для работы библиотеки модули');

@@ -11,7 +11,6 @@ use GGrach\FishGenerator\Debug;
  * @todo https://loremipsum.io/ru/21-of-the-best-placeholder-image-generators/
  */
 
-
 /**
  * Все, что связано с генерацией фотографий
  */
@@ -75,9 +74,17 @@ class PhotoGenerator extends Debug {
 
     public function generatePhotoFromLink(string $photoLink): array {
         $pictureArray = \CFile::MakeFileArray($photoLink);
-
         if (empty($pictureArray['tmp_name'])) {
-            throw new GeneratePhotoException('Ошибка сохранения изображения, возможно, у Вас не справляется сервер');
+            
+            $error = 'Ошибка сохранения изображения по ссылке '.$photoLink.', возможно, у Вас не хватает ресурсов сервера или недоступен сайт lorempixel.com откуда берутся фотографии';
+            
+            $this->addError($error);
+            
+            if ($this->isStrictMode) {
+                throw new GeneratePhotoException($error);
+            }
+            
+            $pictureArray = [];
         } else {
             $pictureArray['name'] = $pictureArray['name'] . '.jpg';
         }
