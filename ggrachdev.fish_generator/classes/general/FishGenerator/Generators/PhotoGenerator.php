@@ -76,7 +76,7 @@ class PhotoGenerator extends Debug {
         $pictureArray = \CFile::MakeFileArray($photoLink);
         if (empty($pictureArray['tmp_name'])) {
             
-            $error = 'Ошибка сохранения изображения по ссылке '.$photoLink.', возможно, у Вас не хватает ресурсов сервера или недоступен сайт lorempixel.com откуда берутся фотографии';
+            $error = 'Error save image from link '.$photoLink.', maybe, can not available lorempixel.com';
             
             $this->addError($error);
             
