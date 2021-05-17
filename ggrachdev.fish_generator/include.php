@@ -2,6 +2,10 @@
 
 if (!class_exists('\Faker\Factory')) {
     include_once 'classes/general/Libs/faker/src/autoload.php';
+    
+    if (!class_exists('\Faker\Factory')) {
+        throw new FileNotFoundException('Need upload faker library in '.__DIR__.'/classes/general/Libs/faker/ from https://github.com/fzaninotto/Faker');
+    }
 }
 
 \Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.fish_generator', [
