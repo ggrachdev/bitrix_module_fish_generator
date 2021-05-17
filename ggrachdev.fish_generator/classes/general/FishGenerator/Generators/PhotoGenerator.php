@@ -80,11 +80,16 @@ class PhotoGenerator extends Debug {
         \curl_setopt($ch, CURLOPT_HEADER, true);
         \curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Must be set to true so that PHP follows any "Location:" header
         \curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
+        \curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
         \curl_exec($ch);
+        if(\curl_errno($ch))
+        {
+            throw new GeneratePhotoException(\curl_error($ch));
+        }
 
         $url = \curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
         \curl_close($ch);
+        
         
         $pictureArray = \CFile::MakeFileArray($url);
         if (empty($pictureArray['tmp_name'])) {
