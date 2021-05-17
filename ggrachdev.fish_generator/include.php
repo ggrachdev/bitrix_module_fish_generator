@@ -12,7 +12,7 @@ if (!class_exists('\Faker\Factory')) {
     "\GGrach\FishGenerator\Exceptions\GeneratorTypeException" => "classes/general/FishGenerator/Exceptions/GeneratorTypeException.php",
     "\GGrach\FishGenerator\Exceptions\SearchIblockException" => "classes/general/FishGenerator/Exceptions/SearchIblockException.php",
     // other
-    "\GGrach\FishGenerator\Debug" => "classes/general/FishGenerator/Debug.php",
+    "\GGrach\FishGenerator\Debug\Debug" => "classes/general/FishGenerator/Debug/Debug.php",
     "\GGrach\FishGenerator\Generators\PhotoGenerator" => "classes/general/FishGenerator/Generators/PhotoGenerator.php",
     "\GGrach\FishGenerator\PropertyRulesElementFilter" => "classes/general/FishGenerator/PropertyRulesElementFilter.php",
     "\GGrach\FishGenerator\Generators\ElementGenerator" => "classes/general/FishGenerator/Generators/ElementGenerator.php",

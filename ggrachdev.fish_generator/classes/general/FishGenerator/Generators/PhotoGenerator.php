@@ -35,7 +35,7 @@ class PhotoGenerator extends Debug {
      * @param string|array $categoryPhoto
      * @return \GGrach\Generators\ElementFishGenerator
      */
-    public function setCategoryPhoto($categoryPhoto): ElementFishGenerator {
+    public function setCategoryPhoto($categoryPhoto): self {
 
         $isValidPhotoCategory = false;
 
