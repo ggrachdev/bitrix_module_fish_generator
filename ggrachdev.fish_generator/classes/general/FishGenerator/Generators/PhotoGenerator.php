@@ -15,10 +15,10 @@ use GGrach\FishGenerator\Debug\Debug;
  * Все, что связано с генерацией фотографий
  */
 class PhotoGenerator extends Debug {
-    
     /*
      * Категории фотографи которые можно установить для генерации
      */
+
     const VALID_CATEGORIES_PHOTO = [
         'abstract', 'animals', 'business',
         'cats', 'city', 'food',
@@ -73,17 +73,30 @@ class PhotoGenerator extends Debug {
     }
 
     public function generatePhotoFromLink(string $photoLink): array {
-        $pictureArray = \CFile::MakeFileArray($photoLink);
+        
+        // Получаем итоговую ссылку даже если есть редирект
+        $ch = \curl_init();
+        \curl_setopt($ch, CURLOPT_URL, $photoLink);
+        \curl_setopt($ch, CURLOPT_HEADER, true);
+        \curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Must be set to true so that PHP follows any "Location:" header
+        \curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        \curl_exec($ch);
+
+        $url = \curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+        \curl_close($ch);
+        
+        $pictureArray = \CFile::MakeFileArray($url);
         if (empty($pictureArray['tmp_name'])) {
-            
-            $error = 'Error save image from link '.$photoLink.', maybe, can not available site generator';
-            
+
+            $error = 'Error save image from link ' . $photoLink . ', maybe, can not available site generator';
+
             $this->addError($error);
-            
+
             if ($this->isStrictMode) {
                 throw new GeneratePhotoException($error);
             }
-            
+
             $pictureArray = [];
         } else {
             $pictureArray['name'] = $pictureArray['name'] . '.jpg';
