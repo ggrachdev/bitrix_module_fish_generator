@@ -39,10 +39,10 @@ class ElementGenerator extends PropertyRulesElementFilter {
 
                 $categoryPhoto = $this->getRandomCategoryPhoto();
 
-                $arValidPropertiesForGeneration = \RuleGenerationParser::parse($this->arPropertyGenerateRules);
+                $arValidPropertiesForGeneration = RuleGenerationParser::parse($this->arPropertyGenerateRules);
 
-                $linkPreviewImage = $this->dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
-                $linkDetailImage = $this->dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
+                $linkPreviewImage = 'https://loremflickr.com/1000/1000/'.$categoryPhoto.'?salt='. \uniqid();
+                $linkDetailImage = 'https://loremflickr.com/1000/1000/'.$categoryPhoto.'?salt='. \uniqid();
 
                 $previewPicture = $this->generatePhotoFromLink($linkPreviewImage);
                 $detailPicture = $this->generatePhotoFromLink($linkDetailImage);
