@@ -1,5 +1,7 @@
 <?php
 
+namespace GGrach\FishGenerator\Parser;
+
 class RuleGenerationParser {
 
     /**

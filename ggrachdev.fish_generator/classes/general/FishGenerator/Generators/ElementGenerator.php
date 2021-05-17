@@ -228,7 +228,9 @@ class ElementGenerator extends PropertyRulesElementFilter {
                         $categoryPhoto = $this->getRandomCategoryPhoto();
 
                         $fileArray = [
-                            'VALUE' => $this->generatePhotoFromLink($this->dataGenerator->imageUrl($width, $height, $categoryPhoto))
+                            'VALUE' => $this->generatePhotoFromLink(
+                                'https://loremflickr.com/'.$width.'/'.$height.'/'.$categoryPhoto.'?salt='. \uniqid()
+                            )
                         ];
 
                         if (!empty($fileArray['VALUE']['tmp_name'])) {
@@ -237,7 +239,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                         }
                     }
                 } else {
-                    $linkImg = $this->dataGenerator->imageUrl($width, $height, $categoryPhoto);
+                    $linkImg = 'https://loremflickr.com/'.$width.'/'.$height.'/'.$categoryPhoto.'?salt='. \uniqid();
                     $valuePropety = $this->generatePhotoFromLink($linkImg);
                 }
                 break;

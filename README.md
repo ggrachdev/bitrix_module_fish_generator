@@ -12,12 +12,11 @@
 <?php
 use GGrach\FishGenerator\Generators\FishGenerator;
 
-
 \Bitrix\Main\Loader::includeModule('ggrachdev.fish_generator');
 
 /** 
 * В конструктор передаем IBLOCK ID в который нужно сгенерировать тестовый элемент
-* При setDebug = true в результирующий массив записываются данные для генерации
+* При setDebugMode = true в результирующий массив записываются данные для генерации
 * При setStrictMode = true выбрасываются Exception'ы если что-то идет не так
 * Вторым параметром в конструктор можно передать локализацию faker, по умолчанию ru_RU
 * По умолчанию автоматически генерируются: имя, детальное фото, фото анонса, детальный текст + текст анонса, символьный код
@@ -26,7 +25,7 @@ use GGrach\FishGenerator\Generators\FishGenerator;
 * нему нужно обращаться через PROPERTY_... то ничего в качестве префикса ставить не нужно
 */
 
-$result = (new FishGenerator(6))->setDebug(true)->setStrictMode(true)
+$result = (new FishGenerator(6))->setDebugMode(true)->setStrictMode(true)
 ->setCategoryPhoto(['technics', 'business', 'city'])
 ->setGenerationRules([
        /*  

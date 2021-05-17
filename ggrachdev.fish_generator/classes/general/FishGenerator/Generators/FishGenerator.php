@@ -5,10 +5,10 @@ namespace GGrach\FishGenerator\Generators;
 use GGrach\FishGenerator\Exceptions\SearchIblockException;
 
 final class FishGenerator extends ElementGenerator {
+    
     /*
      * @var int ID Инфоблока в который будет осуществлена генерация
      */
-
     protected $iblockId = null;
 
     /**
