@@ -3,7 +3,7 @@
 namespace GGrach\FishGenerator\Generators;
 
 use GGrach\FishGenerator\Exceptions\GeneratePhotoException;
-use GGrach\FishGenerator\Debug;
+use GGrach\FishGenerator\Debug\Debug;
 
 /**
  * @todo Add https://dummyimage.com/
@@ -35,7 +35,7 @@ class PhotoGenerator extends Debug {
      * @param string|array $categoryPhoto
      * @return \GGrach\Generators\ElementFishGenerator
      */
-    public function setCategoryPhoto($categoryPhoto): ElementFishGenerator {
+    public function setCategoryPhoto($categoryPhoto): self {
 
         $isValidPhotoCategory = false;
 
@@ -55,7 +55,7 @@ class PhotoGenerator extends Debug {
         }
 
         if ($isValidPhotoCategory === false) {
-            if ($this->$isStrictMode) {
+            if ($this->isStrictMode) {
                 if (is_array($categoryPhoto)) {
                     throw new GeneratePhotoException('Not found photos with categories ' . implode(',', $categoryPhoto));
                 } else {
@@ -73,17 +73,30 @@ class PhotoGenerator extends Debug {
     }
 
     public function generatePhotoFromLink(string $photoLink): array {
-        $pictureArray = \CFile::MakeFileArray($photoLink);
+        
+        // Получаем итоговую ссылку даже если есть редирект
+        $ch = \curl_init();
+        \curl_setopt($ch, CURLOPT_URL, $photoLink);
+        \curl_setopt($ch, CURLOPT_HEADER, true);
+        \curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Must be set to true so that PHP follows any "Location:" header
+        \curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        \curl_exec($ch);
+
+        $url = \curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+        \curl_close($ch);
+        
+        $pictureArray = \CFile::MakeFileArray($url);
         if (empty($pictureArray['tmp_name'])) {
-            
-            $error = 'Ошибка сохранения изображения по ссылке '.$photoLink.', возможно, у Вас не хватает ресурсов сервера или недоступен сайт lorempixel.com откуда берутся фотографии';
-            
+
+            $error = 'Error save image from link ' . $photoLink . ', maybe, can not available site generator';
+
             $this->addError($error);
-            
+
             if ($this->isStrictMode) {
                 throw new GeneratePhotoException($error);
             }
-            
+
             $pictureArray = [];
         } else {
             $pictureArray['name'] = $pictureArray['name'] . '.jpg';

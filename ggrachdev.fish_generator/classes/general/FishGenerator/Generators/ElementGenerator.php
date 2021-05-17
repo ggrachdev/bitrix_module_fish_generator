@@ -3,21 +3,14 @@
 namespace GGrach\FishGenerator\Generators;
 
 use GGrach\FishGenerator\Exceptions\GenerateElementException;
-use GGrach\FishGenerator\Exceptions\SearchIblockException;
 use GGrach\FishGenerator\Exceptions\GeneratorTypeException;
 use GGrach\FishGenerator\PropertyRulesElementFilter;
+use GGrach\FishGenerator\Parser\RuleGenerationParser;
 
 /**
  * Логика генерации элемента
  */
 class ElementGenerator extends PropertyRulesElementFilter {
-
-    /**
-     * Свойства которые считаются за стандартные свойства битрикса
-     */
-    const STANDART_PROPERTIES = [
-        'NAME', 'ACTIVE', 'CODE', 'IBLOCK_SECTION_ID', 'DETAIL_TEXT', 'PREVIEW_TEXT', 'SORT'
-    ];
 
     /**
      * @var Object Адаптированный генератор
@@ -46,10 +39,10 @@ class ElementGenerator extends PropertyRulesElementFilter {
 
                 $categoryPhoto = $this->getRandomCategoryPhoto();
 
-                $arPropertyGenerated = $this->getGeneratedPropertyArray();
+                $arValidPropertiesForGeneration = RuleGenerationParser::parse($this->arPropertyGenerateRules);
 
-                $linkPreviewImage = $this->dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
-                $linkDetailImage = $this->dataGenerator->imageUrl(1000, 1000, $categoryPhoto);
+                $linkPreviewImage = 'https://loremflickr.com/1000/1000/'.$categoryPhoto.'?salt='. \uniqid();
+                $linkDetailImage = 'https://loremflickr.com/1000/1000/'.$categoryPhoto.'?salt='. \uniqid();
 
                 $previewPicture = $this->generatePhotoFromLink($linkPreviewImage);
                 $detailPicture = $this->generatePhotoFromLink($linkDetailImage);
@@ -65,15 +58,15 @@ class ElementGenerator extends PropertyRulesElementFilter {
                 ];
 
                 // Вставляем стандартные свойства
-                if (!empty($arPropertyGenerated['STANDART_PROPERTIES'])) {
-                    foreach ($arPropertyGenerated['STANDART_PROPERTIES'] as $propCode => $propValue) {
+                if (!empty($arValidPropertiesForGeneration['STANDART_PROPERTIES'])) {
+                    foreach ($arValidPropertiesForGeneration['STANDART_PROPERTIES'] as $propCode => $propValue) {
                         $arField[$propCode] = $propValue;
                     }
                 }
 
                 // Вставляем свойства
-                if (!empty($arPropertyGenerated['PROPERTIES'])) {
-                    $arField['PROPERTY_VALUES'] = $arPropertyGenerated['PROPERTIES'];
+                if (!empty($arValidPropertiesForGeneration['PROPERTIES'])) {
+                    $arField['PROPERTY_VALUES'] = $arValidPropertiesForGeneration['PROPERTIES'];
                 }
 
                 $arField['NAME'] = str_replace('$', ($i + 1), $arField['NAME']);
@@ -85,8 +78,9 @@ class ElementGenerator extends PropertyRulesElementFilter {
                 $arField['CODE'] = \CUtil::translit($arField['NAME'], "ru");
 
                 $el = new \CIBlockElement();
+                $productId = $el->Add($arField, false, true, false);
 
-                if ($productId = $el->Add($arField, false, true, false)) {
+                if ($productId) {
                     $this->addSuccess($arField);
                 } else {
                     $this->addError($el->LAST_ERROR . ' ON LINE ' . __LINE__);
@@ -106,76 +100,6 @@ class ElementGenerator extends PropertyRulesElementFilter {
 
 
         return $this->getResultData();
-    }
-
-    /**
-     * Получить обработанный массив сгенерированных данных для элемента
-     * 
-     * @return array
-     */
-    protected function getGeneratedPropertyArray(): array {
-
-        $arPropertyGenerated = [
-            'PROPERTIES' => [],
-            'STANDART_PROPERTIES' => []
-        ];
-
-        if (!empty($this->arPropertyGenerateRules)) {
-
-            foreach ($this->arPropertyGenerateRules as $propertyName => $typeGenerator) {
-
-                $isStandartProperties = in_array(str_replace(['*', '='], ['', ''], $propertyName), static::STANDART_PROPERTIES) && ($propertyName[0] == '*' || $propertyName[1] == '*');
-
-                $isDefaultValue = false;
-
-                if ($isStandartProperties) {
-                    if ($propertyName[0] === '=' || $propertyName[1] === '=') {
-                        $isDefaultValue = true;
-                    }
-                } else {
-                    if ($propertyName[0] === '=') {
-                        $isDefaultValue = true;
-                    }
-                }
-
-                if (!is_array($typeGenerator)) {
-                    $arParams = explode('(', str_replace(')', '', $typeGenerator));
-                    $typeGenerator = array_shift($arParams);
-
-                    $valuePropety = null;
-
-                    if (!$isDefaultValue) {
-                        $valuePropety = $this->generateItem($typeGenerator, $arParams);
-                    } else {
-                        $valuePropety = $typeGenerator;
-                    }
-                } else {
-
-                    if (sizeof($typeGenerator) == 2) {
-
-                        if (is_numeric($typeGenerator[1]) && is_string($typeGenerator[0])) {
-
-                            $count = $typeGenerator[1];
-
-                            $arParams = explode('(', str_replace(')', '', $typeGenerator[0]));
-                            $typeGenerator = array_shift($arParams);
-
-                            $valuePropety = $this->generateItem($typeGenerator, $arParams, $count);
-                        }
-                    }
-                }
-
-                if ($valuePropety !== null) {
-                    if ($isStandartProperties) {
-                        $arPropertyGenerated['STANDART_PROPERTIES'][str_replace(['*', '='], ['', ''], $propertyName)] = $valuePropety;
-                    } else {
-                        $arPropertyGenerated['PROPERTIES'][str_replace(['*', '='], ['', ''], $propertyName)] = $valuePropety;
-                    }
-                }
-            }
-        }
-
-        return $arPropertyGenerated;
     }
 
     /**
@@ -304,7 +228,9 @@ class ElementGenerator extends PropertyRulesElementFilter {
                         $categoryPhoto = $this->getRandomCategoryPhoto();
 
                         $fileArray = [
-                            'VALUE' => $this->generatePhotoFromLink($this->dataGenerator->imageUrl($width, $height, $categoryPhoto))
+                            'VALUE' => $this->generatePhotoFromLink(
+                                'https://loremflickr.com/'.$width.'/'.$height.'/'.$categoryPhoto.'?salt='. \uniqid()
+                            )
                         ];
 
                         if (!empty($fileArray['VALUE']['tmp_name'])) {
@@ -313,7 +239,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                         }
                     }
                 } else {
-                    $linkImg = $this->dataGenerator->imageUrl($width, $height, $categoryPhoto);
+                    $linkImg = 'https://loremflickr.com/'.$width.'/'.$height.'/'.$categoryPhoto.'?salt='. \uniqid();
                     $valuePropety = $this->generatePhotoFromLink($linkImg);
                 }
                 break;
@@ -330,7 +256,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
                     if (!empty($arParams[0])) {
                         $arRand = explode(',', $arParams[0]);
 
-                        $arRand = array_map(function($el) {
+                        $arRand = array_map(function ($el) {
                             return trim($el);
                         }, $arRand);
 

@@ -1,6 +1,6 @@
 <?
 
-namespace GGrach\FishGenerator;
+namespace GGrach\FishGenerator\Debug;
 
 /**
  * @todo Add https://dummyimage.com/
@@ -71,7 +71,7 @@ class Debug {
         }
     }
 
-    public function setDebug(bool $valueDebug) {
+    public function setDebugMode(bool $valueDebug) {
         $this->isDebug = $valueDebug;
         return $this;
     }

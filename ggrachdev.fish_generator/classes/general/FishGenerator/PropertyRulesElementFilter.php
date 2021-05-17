@@ -4,13 +4,13 @@ namespace GGrach\FishGenerator;
 
 use GGrach\FishGenerator\Exceptions\BitrixRedactionException;
 use GGrach\FishGenerator\Generators\PhotoGenerator;
+use GGrach\FishGenerator\Cache\RuntimeCache;
 
 /**
  * @todo Add https://dummyimage.com/
  * @todo https://loremflickr.com/ 
  * @todo https://loremipsum.io/ru/21-of-the-best-placeholder-image-generators/
  */
-
 
 /**
  * Логика установки и первоначальная валидация правил для генерации.
@@ -30,7 +30,7 @@ class PropertyRulesElementFilter extends PhotoGenerator {
      * @param array $arPropertyRules
      * @return $this
      */
-    public function setPropertyRules(array $arPropertyRules) {
+    public function setGenerationRules(array $arPropertyRules) {
 
         // @todo
         $needCatalogModule = false;
@@ -43,11 +43,14 @@ class PropertyRulesElementFilter extends PhotoGenerator {
                 if (is_string($k)) {
 
                     if ($v === 'randomSection' || $v[1] === 'randomSection') {
-                        if (array_key_exists('SECTIONS_' . $this->iblockId, $this->arCache)) {
+
+                        $keyCacheSection = 'SECTIONS_' . $this->iblockId;
+
+                        if (RuntimeCache::has($keyCacheSection)) {
                             if ($v === 'randomSection') {
-                                $v = 'randomElement(' . implode(',', $this->arCache['SECTIONS_' . $this->iblockId]) . ')';
+                                $v = 'randomElement(' . implode(',', RuntimeCache::get($keyCacheSection)) . ')';
                             } else {
-                                $v[1] = 'randomElement(' . implode(',', $this->arCache['SECTIONS_' . $this->iblockId]) . ')';
+                                $v[1] = 'randomElement(' . implode(',', RuntimeCache::get($keyCacheSection)) . ')';
                             }
                         } else {
                             if (\CModule::IncludeModule("iblock")) {
@@ -58,10 +61,11 @@ class PropertyRulesElementFilter extends PhotoGenerator {
                                     $dataSections[] = $arSection['ID'];
                                 }
 
-                                if (empty($dataSections))
+                                if (empty($dataSections)) {
                                     $dataSections = [0];
+                                }
 
-                                $this->arCache['SECTIONS_' . $this->iblockId] = $dataSections;
+                                RuntimeCache::set($keyCacheSection, $dataSections);
 
                                 if ($v === 'randomSection') {
                                     $v = 'randomElement(' . implode(',', $dataSections) . ')';
@@ -82,7 +86,7 @@ class PropertyRulesElementFilter extends PhotoGenerator {
         }
 
         if ($needCatalogModule) {
-            if (!\CModule::IncludeModule("catalog")) {
+            if (!\Bitrix\Main\Loader::includeModule("catalog")) {
                 throw new BitrixRedactionException('Not found modul Catalog');
             }
         }
