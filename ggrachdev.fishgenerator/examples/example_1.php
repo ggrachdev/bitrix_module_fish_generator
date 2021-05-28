@@ -1,6 +1,6 @@
 <?php
 
-if (\Bitrix\Main\Loader::includeModule('ggrachdev.fish_generator')) {
+if (\Bitrix\Main\Loader::includeModule('ggrachdev.fishgenerator')) {
     // Инфоблок куда нужно сгенерировать элементы
     $iblockId = 1;
 
