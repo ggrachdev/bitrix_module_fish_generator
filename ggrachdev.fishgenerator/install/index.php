@@ -6,9 +6,9 @@ $strPath2Lang = substr($strPath2Lang, 0, strlen($strPath2Lang) - 18);
 @include(GetLangFileName($strPath2Lang . "/lang/", "/install/index.php"));
 IncludeModuleLangFile($strPath2Lang . "/install/index.php");
 
-class ggrachdev_fish_generator extends CModule {
+class ggrachdev_fishgenerator extends CModule {
 
-    public $MODULE_ID = 'ggrachdev.fish_generator';
+    public $MODULE_ID = 'ggrachdev.fishgenerator';
     public $MODULE_VERSION;
     public $MODULE_VERSION_DATE;
     public $MODULE_NAME;
