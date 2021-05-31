@@ -21,6 +21,8 @@ use GGrach\FishGenerator\Generators\FishGenerator;
 * Системными полями считаются: 'NAME', 'ACTIVE', 'CODE', 'IBLOCK_SECTION_ID', 'DETAIL_TEXT', 'PREVIEW_TEXT', 'SORT'
 * Если поле является системным, то нужно установки правил генерации ставить * перед ним, если же свойство является дополнительно созданным и к 
 * нему нужно обращаться через PROPERTY_... то ничего в качестве префикса ставить не нужно
+* В качестве способа генерации можно указывать любые методы библиотеки faker и передать параметры через (param_1, param_2):
+* methodGenerate(1, 2, 3, 4, param 1, param 2) - Т.е если параметр строка - то скобки не надо ставить, массивы пока нельзя передавать
 */
 
 $result = (new FishGenerator(6))->setDebugMode(true)->setStrictMode(true)
@@ -46,6 +48,11 @@ $result = (new FishGenerator(6))->setDebugMode(true)->setStrictMode(true)
        'IMPLEMENTED_PROCESSES_VALUES' => [
            'realText(100)', 5
        ],
+       // Свойство PROPERTY_NAME_IN_CATALOG сгенерировать через realText
+       'NAME_IN_CATALOG' => 'realText(50)',
+       // В свойство PROPERTY_URL сгенерировать домен
+       'URL' => 'freeEmailDomain'
+
        '*IBLOCK_SECTION_ID' => 'randomSection'
    ])->generate(1);
    
@@ -82,3 +89,4 @@ echo '</pre>';
 - image  
 - image(1000, 500) // Ширина, высота  
 - randomSection // Привязать элемент к случайной секции инфоблока
+- ...прочие функции из faker'a
