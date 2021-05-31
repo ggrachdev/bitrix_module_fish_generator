@@ -2,6 +2,8 @@
 
 namespace GGrach\FishGenerator\Parser;
 
+use GGrach\FishGenerator\Generators\FishGenerator;
+
 class RuleGenerationParser {
 
     /**
@@ -11,7 +13,7 @@ class RuleGenerationParser {
         'NAME', 'ACTIVE', 'CODE', 'IBLOCK_SECTION_ID', 'DETAIL_TEXT', 'PREVIEW_TEXT', 'SORT'
     ];
 
-    public static function parse(array $arInputRules) {
+    public static function parse(array $arInputRules, FishGenerator $generator) {
 
         $arValidPropertiesForGeneration = [
             'PROPERTIES' => [],
@@ -43,7 +45,7 @@ class RuleGenerationParser {
                     $valuePropety = null;
 
                     if (!$isDefaultValue) {
-                        $valuePropety = $this->generateItem($typeGenerator, $arParams);
+                        $valuePropety = $generator->generateItem($typeGenerator, $arParams);
                     } else {
                         $valuePropety = $typeGenerator;
                     }
@@ -58,7 +60,7 @@ class RuleGenerationParser {
                             $arParams = explode('(', str_replace(')', '', $typeGenerator[0]));
                             $typeGenerator = array_shift($arParams);
 
-                            $valuePropety = $this->generateItem($typeGenerator, $arParams, $count);
+                            $valuePropety = $generator->generateItem($typeGenerator, $arParams, $count);
                         }
                     }
                 }

@@ -1,10 +1,19 @@
 <?
 
 if (!class_exists('\Faker\Factory')) {
-    include_once 'classes/general/Libs/faker/src/autoload.php';
+
+    if (\file_exists(__DIR__ . 'classes/general/Libs/Faker/src/autoload.php')) {
+        throw new FileNotFoundException('Need upload ( git clone https://github.com/fzaninotto/Faker ) faker library in ' . __DIR__ . '/classes/general/Libs/faker/ from https://github.com/fzaninotto/Faker');
+    }
+
+    include_once 'classes/general/Libs/Faker/src/autoload.php';
+
+    if (!class_exists('\Faker\Factory')) {
+        throw new FileNotFoundException('Not found \Faker\Factory class. Need upload ( git clone https://github.com/fzaninotto/Faker ) faker library in ' . __DIR__ . '/classes/general/Libs/faker/ from https://github.com/fzaninotto/Faker');
+    }
 }
 
-\Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.fish_generator', [
+\Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.fishgenerator', [
     // exceptions
     "\GGrach\FishGenerator\Exceptions\BitrixRedactionException" => "classes/general/FishGenerator/Exceptions/BitrixRedactionException.php",
     "\GGrach\FishGenerator\Exceptions\GenerateElementException" => "classes/general/FishGenerator/Exceptions/GenerateElementException.php",
