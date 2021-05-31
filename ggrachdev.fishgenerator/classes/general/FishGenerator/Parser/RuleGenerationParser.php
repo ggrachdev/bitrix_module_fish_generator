@@ -38,7 +38,7 @@ class RuleGenerationParser {
                 $isDefaultValue = true;
             }
         }
-        
+
         return $isDefaultValue;
     }
 
@@ -57,6 +57,8 @@ class RuleGenerationParser {
 
         $isDefaultValue = self::isDefaultValue($propertyName);
 
+        $valuePropety = null;
+
         if (is_array($ruleGeneration)) {
 
             if (sizeof($ruleGeneration) == 2) {
@@ -72,27 +74,39 @@ class RuleGenerationParser {
 
                     $ruleGeneration = array_shift($arParams);
 
-                    if($isDefaultValue)
-                    {
+                    if ($isDefaultValue) {
                         $valuePropety = [];
-                        
-                        for($i = 0; $i <= $count; $i++)
-                        {
-                            $valuePropety[] = str_replace('$', ($i+1), $ruleGeneration);
+
+                        for ($i = 0; $i <= $count; $i++) {
+                            $valuePropety[] = str_replace('$', ($i + 1), $ruleGeneration);
                         }
-                    }
-                    else
-                    {
-                        $valuePropety = $generator->generateItem($ruleGeneration, $arParams, $count);
+                    } else {
+                        if ($count === 1) {
+                            $valuePropety = $generator->generateItem($ruleGeneration, $arParams);
+                        } else {
+                            
+                            $valuePropety = [];
+                            
+                            if($ruleGeneration === 'image')
+                            {
+                                for ($i = 0; $i <= $count; $i++) {
+                                    $valuePropety['n'.$i] = $generator->generateItem($ruleGeneration, $arParams);
+                                }
+                            }
+                            else
+                            {
+                                for ($i = 0; $i <= $count; $i++) {
+                                    $valuePropety[] = $generator->generateItem($ruleGeneration, $arParams);
+                                }
+                            }
+                        }
                     }
                 }
             }
         } else {
-            
+
             $arParams = self::getParamsFromGeneratorString($ruleGeneration);
             $ruleGeneration = array_shift($arParams);
-
-            $valuePropety = null;
 
             if ($isDefaultValue) {
                 $valuePropety = $ruleGeneration;
