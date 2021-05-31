@@ -39,7 +39,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
 
                 $categoryPhoto = $this->getRandomCategoryPhoto();
 
-                $arValidPropertiesForGeneration = RuleGenerationParser::parse($this->arPropertyGenerateRules);
+                $arValidPropertiesForGeneration = RuleGenerationParser::parse($this->arPropertyGenerateRules, $this);
 
                 $linkPreviewImage = 'https://loremflickr.com/1000/1000/'.$categoryPhoto.'?salt='. \uniqid();
                 $linkDetailImage = 'https://loremflickr.com/1000/1000/'.$categoryPhoto.'?salt='. \uniqid();
@@ -111,7 +111,7 @@ class ElementGenerator extends PropertyRulesElementFilter {
      * @return array|null сгенерированные данные
      * @throws GeneratorTypeException
      */
-    protected function generateItem(string $typeGenerator, array $arParams = [], int $count = 1) {
+    public function generateItem(string $typeGenerator, array $arParams = [], int $count = 1) {
 
         $valuePropety = null;
 

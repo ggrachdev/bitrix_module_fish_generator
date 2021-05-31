@@ -13,7 +13,7 @@ if (!class_exists('\Faker\Factory')) {
     }
 }
 
-\Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.fish_generator', [
+\Bitrix\Main\Loader::registerAutoLoadClasses('ggrachdev.fishgenerator', [
     // exceptions
     "\GGrach\FishGenerator\Exceptions\BitrixRedactionException" => "classes/general/FishGenerator/Exceptions/BitrixRedactionException.php",
     "\GGrach\FishGenerator\Exceptions\GenerateElementException" => "classes/general/FishGenerator/Exceptions/GenerateElementException.php",
