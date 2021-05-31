@@ -43,14 +43,18 @@ $result = (new FishGenerator(6))->setDebugMode(true)->setStrictMode(true)
        'PRODUCTION_PHOTOS' => [
            'image', 7
        ],
+       
        'IMPLEMENTED_PROCESSES_POINTS' => [
            'randomElement(Тестовый пункт, Еще один пункт, Пункт производства, Новый пункт, Пункт элемента, Тестовый процесс, Процесс производства, Новый процесс производства)', 5
        ],
+       
        'IMPLEMENTED_PROCESSES_VALUES' => [
            'realText(100)', 5
        ],
+       
        // Свойство PROPERTY_NAME_IN_CATALOG сгенерировать через realText
        'NAME_IN_CATALOG' => 'realText(50)',
+       
        // В свойство PROPERTY_URL сгенерировать домен
        'URL' => 'freeEmailDomain'
 
@@ -82,7 +86,7 @@ echo '</pre>';
 - time  
 - year  
 - jobTitle  
-- numberBetween(0)(1000)  
+- numberBetween(0, 1000)  
 - randomElement(1,2,3,4)  
 - lastName  
 - firstName  
