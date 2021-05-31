@@ -288,10 +288,33 @@ class ElementGenerator extends PropertyRulesElementFilter {
                 break;
 
             default:
-                $this->addError('Not found generator type');
+                $rc = new \ReflectionClass($this->dataGenerator);       
+                if($rc->hasMethod($typeGenerator))
+                {
+                    try {
+                        if ($count == 1) {
+                            $valuePropety = \call_user_func_array([$this->dataGenerator, $typeGenerator], $arParams);
+                        } else {
+                            $valuePropety = [];
+                            for ($i = 0; $i < $count; $i++) {
+                                $valuePropety[] = \call_user_func_array([$this->dataGenerator, $typeGenerator], $arParams);
+                            }
+                        }
+                    } catch (Exception $ex) {
+                        $this->addError($ex->getMessage());
 
-                if ($this->isStrictMode) {
-                    throw new GeneratorTypeException('Not found generator type');
+                        if ($this->isStrictMode) {
+                            throw new GeneratorTypeException($ex->getMessage());
+                        }
+                    }
+                }
+                else
+                {
+                    $this->addError('Not found generator type');
+
+                    if ($this->isStrictMode) {
+                        throw new GeneratorTypeException('Not found generator type');
+                    }
                 }
                 break;
         }
