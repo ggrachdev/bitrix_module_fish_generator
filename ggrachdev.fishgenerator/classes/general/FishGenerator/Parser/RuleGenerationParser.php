@@ -53,24 +53,24 @@ class RuleGenerationParser {
      * @param FishGenerator $generator
      * @return type
      */
-    private static function generatePropertyValue(string $propertyName, $typeGenerator, FishGenerator $generator) {
+    private static function generatePropertyValue(string $propertyName, $ruleGeneration, FishGenerator $generator) {
 
         $isDefaultValue = self::isDefaultValue($propertyName);
 
-        if (is_array($typeGenerator)) {
+        if (is_array($ruleGeneration)) {
 
-            if (sizeof($typeGenerator) == 2) {
+            if (sizeof($ruleGeneration) == 2) {
 
                 if (
-                    is_string($typeGenerator[0]) &&
-                    is_numeric($typeGenerator[1])
+                    is_string($ruleGeneration[0]) &&
+                    is_numeric($ruleGeneration[1])
                 ) {
 
-                    $arParams = self::getParamsFromGeneratorString($typeGenerator[0]);
+                    $arParams = self::getParamsFromGeneratorString($ruleGeneration[0]);
 
-                    $count = $typeGenerator[1];
+                    $count = $ruleGeneration[1];
 
-                    $typeGenerator = array_shift($arParams);
+                    $ruleGeneration = array_shift($arParams);
 
                     if($isDefaultValue)
                     {
@@ -78,26 +78,26 @@ class RuleGenerationParser {
                         
                         for($i = 0; $i <= $count; $i++)
                         {
-                            $valuePropety[] = str_replace('$', ($i+1), $typeGenerator);
+                            $valuePropety[] = str_replace('$', ($i+1), $ruleGeneration);
                         }
                     }
                     else
                     {
-                        $valuePropety = $generator->generateItem($typeGenerator, $arParams, $count);
+                        $valuePropety = $generator->generateItem($ruleGeneration, $arParams, $count);
                     }
                 }
             }
         } else {
             
-            $arParams = self::getParamsFromGeneratorString($typeGenerator);
-            $typeGenerator = array_shift($arParams);
+            $arParams = self::getParamsFromGeneratorString($ruleGeneration);
+            $ruleGeneration = array_shift($arParams);
 
             $valuePropety = null;
 
             if ($isDefaultValue) {
-                $valuePropety = $typeGenerator;
+                $valuePropety = $ruleGeneration;
             } else {
-                $valuePropety = $generator->generateItem($typeGenerator, $arParams);
+                $valuePropety = $generator->generateItem($ruleGeneration, $arParams);
             }
         }
 
