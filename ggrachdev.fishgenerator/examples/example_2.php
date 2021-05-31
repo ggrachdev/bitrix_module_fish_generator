@@ -1,31 +1,24 @@
 <?php
 
-if (\Bitrix\Main\Loader::includeModule('ggrachdev.fishgenerator')) {
-    // Инфоблок куда нужно сгенерировать элементы
-    $iblockId = 1;
+define("STATISTIC_SKIP_ACTIVITY_CHECK", "true");
+define('STOP_STATISTICS', true);
+define('PUBLIC_AJAX_MODE', true);
 
-    // Нужно сгенерировать 10 элементов
-    $countElements = 10;
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_before.php");
+
+if (\Bitrix\Main\Loader::includeModule('ggrachdev.fishgenerator')) {
+    $iblockId = 14;
+
+    $countElements = 1;
 
     $result = (new \GGrach\FishGenerator\Generators\FishGenerator($iblockId))
             ->setDebugMode(true)
             ->setStrictMode(true)
             ->setGenerationRules([
-                '*=NAME' => 'Тестовый элемент $',
+                '*NAME' => 'realText(50)',
+                '*PREVIEW_TEXT' => 'realText(100)',
+                '*DETAIL_TEXT' => 'realText(500)',
+                'URL' => 'freeEmailDomain',
             ])->generate($countElements);
-
-    /**
-     * В результате получим 10 новых элементов с именами:
-     * 
-     * Тестовый элемент 1
-     * Тестовый элемент 2
-     * Тестовый элемент 3
-     * Тестовый элемент 4
-     * ...
-     * Тестовый элемент 10
-     */
-    
-    /**
-     * Так же у элементов будет заполнена картинка анонса и детальная картинка, детальный текст, текст анонса, символьный код
-     */
 }
+
