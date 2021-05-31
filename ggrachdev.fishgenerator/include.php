@@ -1,10 +1,15 @@
 <?
 
 if (!class_exists('\Faker\Factory')) {
+
+    if (\file_exists(__DIR__ . 'classes/general/Libs/Faker/src/autoload.php')) {
+        throw new FileNotFoundException('Need upload ( git clone https://github.com/fzaninotto/Faker ) faker library in ' . __DIR__ . '/classes/general/Libs/faker/ from https://github.com/fzaninotto/Faker');
+    }
+
     include_once 'classes/general/Libs/Faker/src/autoload.php';
-    
+
     if (!class_exists('\Faker\Factory')) {
-        throw new FileNotFoundException('Need upload faker library in '.__DIR__.'/classes/general/Libs/faker/ from https://github.com/fzaninotto/Faker');
+        throw new FileNotFoundException('Not found \Faker\Factory class. Need upload ( git clone https://github.com/fzaninotto/Faker ) faker library in ' . __DIR__ . '/classes/general/Libs/faker/ from https://github.com/fzaninotto/Faker');
     }
 }
 
