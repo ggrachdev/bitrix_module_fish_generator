@@ -25,6 +25,7 @@ use GGrach\FishGenerator\Generators\FishGenerator;
 * methodGenerate(1, 2, 3, 4, param 1, param 2) - Т.е если параметр строка - то скобки не надо ставить, массивы пока нельзя передавать
 */
 
+// Генерировать в инфоблок с ID = 6
 $result = (new FishGenerator(6))->setDebugMode(true)->setStrictMode(true)
 ->setCategoryPhoto(['technics', 'business', 'city'])
 ->setGenerationRules([
@@ -54,7 +55,9 @@ $result = (new FishGenerator(6))->setDebugMode(true)->setStrictMode(true)
        'URL' => 'freeEmailDomain'
 
        '*IBLOCK_SECTION_ID' => 'randomSection'
-   ])->generate(1);
+       
+       // Сгенерировать 10 элементов
+   ])->generate(10);
    
 echo '<pre>';  
 print_r($result);  
